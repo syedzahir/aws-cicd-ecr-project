@@ -6,10 +6,11 @@ phases:
       - echo Installing Docker
       - apt-get update
       - apt-get install -y docker.io
+      - service docker start
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr
       - REPOSITORY_URI=135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr
       - IMAGE_TAG=$(date +%Y%m%d%H%M%S)
   build:
