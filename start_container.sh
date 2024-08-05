@@ -9,6 +9,16 @@ then
     ./aws/install
 fi
 
+# Check if NGINX service is running and stop it if it is
+if pgrep nginx > /dev/null
+then
+    echo "NGINX service is running. Stopping NGINX service..."
+    sudo service nginx stop
+else
+    echo "NGINX service is not running. No need to stop it."
+fi
+
+
 # Log in to ECR
 echo "Logging in to Amazon ECR..."
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 135167406830.dkr.ecr.us-east-1.amazonaws.com
