@@ -6,8 +6,7 @@ phases:
       - echo Installing Docker
       - apt-get update
       - apt-get install -y docker.io
-      - systemctl start docker
-      - systemctl enable docker
+      - service docker start
       - usermod -aG docker $USER
   pre_build:
     commands:
