@@ -1,4 +1,21 @@
 #!/bin/bash
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr
-docker pull 135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr:latest
-docker run -d -p 80:80 135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecrlatest
+
+# Install AWS CLI if not installed
+if ! command -v aws &> /dev/null
+then
+    echo "AWS CLI not found. Installing AWS CLI..."
+    apt-get update
+    apt-get install -y awscli
+fi
+
+# Log in to ECR
+echo "Logging in to Amazon ECR..."
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 135167406830.dkr.ecr.us-east-1.amazonaws.com
+
+# Pull the latest image
+REPOSITORY_URI=135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr
+IMAGE_TAG=latest
+docker pull $REPOSITORY_URI:$IMAGE_TAG
+
+# Run the container
+docker run -d -p 80:80 $REPOSITORY_URI:$IMAGE_TAG
