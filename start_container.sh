@@ -10,14 +10,7 @@ then
 fi
 
 # Check if NGINX service is running and stop it if it is
-if pgrep nginx > /dev/null
-then
-    echo "NGINX service is running. Stopping NGINX service..."
-    sudo service nginx stop
-else
-    echo "NGINX service is not running. No need to stop it."
-fi
-
+sudo service nginx stop
 
 # Log in to ECR
 echo "Logging in to Amazon ECR..."
