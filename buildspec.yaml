@@ -6,8 +6,7 @@ phases:
       - echo Installing Docker
       - apt-get update
       - apt-get install -y docker.io
-      - service docker start
-      - usermod -aG docker $USER
+      - nohup dockerd > /dev/null 2>&1 &
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
