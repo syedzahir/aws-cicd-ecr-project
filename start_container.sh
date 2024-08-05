@@ -10,7 +10,7 @@ then
 fi
 
 # Check if NGINX service is running and stop it if it is
-sudo service nginx stop
+# sudo service nginx stop
 
 # Log in to ECR
 echo "Logging in to Amazon ECR..."
