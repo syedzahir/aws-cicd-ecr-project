@@ -12,8 +12,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr
       - REPOSITORY_URI=135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr
-      - IMAGE_TAG=latest
-      # $(date +%Y%m%d%H%M%S)
+      - IMAGE_TAG=$(date +%Y%m%d%H) # %M%S)
   build:
     commands:
       - echo Building the Docker image...

@@ -18,7 +18,7 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 
 # Pull the latest image
 REPOSITORY_URI=135167406830.dkr.ecr.us-east-1.amazonaws.com/szh-cicd-ecr
-IMAGE_TAG=latest
+IMAGE_TAG=$(date +%Y%m%d%H)
 docker pull $REPOSITORY_URI:$IMAGE_TAG
 
 # Run the container
