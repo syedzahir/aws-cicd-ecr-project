@@ -9,7 +9,7 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 #stop nginx service
-sudo service nginx stop
+# sudo service nginx stop
 
 # Add your user to the Docker group to run Docker commands without sudo
 $USER = 'ubuntu'

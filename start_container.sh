@@ -10,7 +10,25 @@ then
 fi
 
 # Check if NGINX service is running and stop it if it is
-# sudo service nginx stop
+if pgrep nginx > /dev/null
+then
+    echo "NGINX service is running. Stopping NGINX service..."
+    sudo service nginx stop
+    sleep 10  # Wait for a few seconds to ensure NGINX has stopped
+else
+    echo "NGINX service is not running. No need to stop it."
+fi
+
+# Check if port 80 is still in use and kill the process if it is
+if lsof -i:80 | grep LISTEN > /dev/null
+then
+    echo "Port 80 is still in use. Killing the process using port 80..."
+    sudo fuser -k 80/tcp
+    sleep 10  # Wait for a few seconds to ensure the process has been killed
+else
+    echo "Port 80 is not in use."
+fi
+
 
 # Log in to ECR
 echo "Logging in to Amazon ECR..."
