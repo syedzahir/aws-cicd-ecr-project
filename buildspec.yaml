@@ -6,7 +6,9 @@ phases:
       - echo Installing Docker
       - apt-get update
       - apt-get install -y docker.io
-      - service docker start
+      - systemctl start docker
+      - systemctl enable docker
+      - usermod -aG docker $USER
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
