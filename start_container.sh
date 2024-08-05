@@ -30,6 +30,26 @@ else
 fi
 
 
+# Find container ID using port 80
+container_id=$(sudo docker ps --filter "publish=80" -q)
+
+# Stop the container
+if [ -n "$container_id" ]; then
+    sudo docker stop "$container_id"
+	sleep 10
+	sudo docker rm "$container_id"
+	sleep 10
+fi
+
+#  Remove all stopped containers
+sudo docker container prune -f
+sleep 30
+
+# Remove unused images and networks
+sudo docker system prune -a -f --volumes
+sleep 30
+
+
 # Log in to ECR
 echo "Logging in to Amazon ECR..."
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 135167406830.dkr.ecr.us-east-1.amazonaws.com
