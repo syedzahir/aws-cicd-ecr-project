@@ -4,8 +4,9 @@
 if ! command -v aws &> /dev/null
 then
     echo "AWS CLI not found. Installing AWS CLI..."
-    apt-get update
-    apt-get install -y awscli
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    ./aws/install
 fi
 
 # Log in to ECR
